@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Conta.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">A3</a> &gt; <a href="index.source.html" class="el_package">A3</a> &gt; <span class="el_source">Conta.java</span></div><h1>Conta.java</h1><pre class="source lang-java linenums">package A3;
+
+public abstract class Conta implements IConta{
+	
+	private static final int AGENCIA_PADRAO = 1;
+<span class="fc" id="L6">	private static int SEQUENCIAL = 1;</span>
+	
+	protected int agencia;
+	protected int numero;
+	protected double saldo;
+	protected Cliente cliente;
+
+<span class="fc" id="L13">	public Conta(Cliente cliente) {</span>
+<span class="fc" id="L14">		this.agencia = Conta.AGENCIA_PADRAO;</span>
+<span class="fc" id="L15">		this.numero = SEQUENCIAL++;</span>
+<span class="fc" id="L16">		this.cliente = cliente;</span>
+<span class="fc" id="L17">	}</span>
+	
+	@Override
+	public void sacar(double valor) {
+<span class="fc bfc" id="L21" title="All 2 branches covered.">		if(valor&lt;=this.saldo) {</span>
+<span class="fc" id="L22">			this.saldo -= valor;</span>
+<span class="fc" id="L23">                        System.out.println(&quot;Saque completo&quot;);</span>
+		}else {
+<span class="fc" id="L25">			System.out.println(&quot;Saldo insuficiente&quot;);</span>
+		}
+<span class="fc" id="L27">	}</span>
+
+	@Override
+	public void depositar(double valor) {
+<span class="fc" id="L31">		this.saldo += valor;</span>
+<span class="fc" id="L32">                System.out.println(&quot;Deposito completo&quot;);</span>
+<span class="fc" id="L33">	}</span>
+	
+	@Override
+	public void transferir(Conta contaDestino, double valor) {
+<span class="fc bfc" id="L37" title="All 2 branches covered.">                if(valor&lt;=this.saldo) {</span>
+<span class="fc" id="L38">                    this.saldo -= valor;</span>
+<span class="fc" id="L39">                    contaDestino.depositar(valor);</span>
+<span class="fc" id="L40">                    System.out.println(&quot;Trasferencia completa&quot;);</span>
+		}else {
+<span class="fc" id="L42">                    System.out.println(&quot;Saldo insuficiente&quot;);</span>
+		}
+<span class="fc" id="L44">	}</span>
+	
+	public int getAgencia() {
+<span class="fc" id="L47">		return agencia;</span>
+	}
+	
+	public int getNumero() {
+<span class="fc" id="L51">		return numero;</span>
+	}
+	
+	public double getSaldo() {
+<span class="fc" id="L55">		return saldo;</span>
+	}
+	
+	protected void imprimirInfosComuns() {
+<span class="fc" id="L59">		System.out.println(String.format(&quot;Titular: &quot; + this.cliente.getNome() + &quot;\nAgencia: &quot; + this.agencia + &quot;\nNumero: &quot; + this.numero +&quot;\nSaldo: &quot; + this.saldo));</span>
+<span class="fc" id="L60">	}</span>
+	
+	
+	
+	
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
